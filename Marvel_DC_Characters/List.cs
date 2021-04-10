@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using CsvHelper;
+using System.Linq;
 
 namespace Marvel_DC_Characters
 {
     class List
     {
+        //Load CSV file
         public static List<Characters> LoadInfo()
         {            
             List<Characters> output = new List<Characters>();
@@ -15,39 +17,38 @@ namespace Marvel_DC_Characters
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "heroes_information_marvel_dc.csv");
-            var fileContents = ReadHeroesResults(fileName);
-            output = fileContents;
+            output = ReadHeroesResults(fileName);            
             return output;
-        }       
-
-      
-        public static string ReadFile(string fileName)
-        {
-            using (var reader = new StreamReader(fileName))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
-        public static List<Characters> ReadHeroesResults(string fileName)
+        }        
+        //Parses file
+        static List<Characters> ReadHeroesResults(string fileName)
         {
             List<Characters> heroesResults = new List<Characters>();
-            using (var reader = new StreamReader(fileName))
-            {
-                string line = "";
-                while ((line = reader.ReadLine()) != null)
-                {
-                    string[] values = line.Split(',');
-                    heroesResults.Add(new Characters 
-                    { 
-                        Id = values[0], 
-                        Publisher = values[7], 
-                        CharacterName = values[1], 
-                        Gender = values[2]
-                    });
-                }
-            }
+            heroesResults = File.ReadAllLines(fileName).Skip(1).Select(v => Characters.FromCsv(v)).ToList();          
             return heroesResults;
+        }
+
+        //Filter the List
+        static List<Characters> FilterList(List<Characters> mylist, string field, string value)
+        {
+            if (field == "Publisher")
+            {
+                mylist = mylist.Where(m => m.Publisher == value).ToList();
+            }
+            if (field == "Alignment")
+            {
+                mylist = mylist.Where(m => m.Alignment == value).ToList();
+            }
+            if (field == "Gender")
+            {
+                mylist = mylist.Where(m => m.Gender == value).ToList();
+            }
+            if (field == "CharacterName")
+            {
+                mylist = mylist.Where(m => m.CharacterName == value).ToList();
+            }
+
+            return mylist;
         }
        
     }

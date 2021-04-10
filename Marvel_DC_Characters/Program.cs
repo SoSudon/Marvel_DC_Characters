@@ -14,7 +14,7 @@ namespace Marvel_DC_Characters
     {      
         static void Main(string[] args)
         {         
-
+            //Load CSV file into List
             List<Characters> marvel = List.LoadInfo();
 
             marvel = marvel.Where(m => m.Publisher == "Marvel Comics").ToList();

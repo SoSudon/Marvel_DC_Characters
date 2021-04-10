@@ -4,13 +4,37 @@ using System.Text;
 using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
+using CsvHelper;
+
+
 
 namespace Marvel_DC_Characters
 {
     class Program
-    {
+    {      
         static void Main(string[] args)
-        {
+        {         
+
+            List<Characters> marvel = List.LoadInfo();
+
+            marvel = marvel.Where(m => m.Publisher == "Marvel Comics").ToList();
+            /*foreach(var characters in marvel)78070
+            {
+                Console.WriteLine(marvel);
+            }*/
+            Console.WriteLine(marvel.Count);
+            Console.WriteLine(marvel[0].Id);
+            Console.WriteLine(marvel[0].Publisher);
+            Console.WriteLine(marvel[0].CharacterName);
+            Console.WriteLine(marvel[0].Gender);
+            //Console.WriteLine(string.Join("\t", marvel));
+            //marvel.ForEach(i => Console.Write("{0}\t", i));
+            //List<Characters> gender = List.LoadInfo();
+            //gender = gender.Where(g => g.Gender == "Male".ToUpper).ToList();
+
+
+            //Console.ReadLine();
+
             Console.Title = " === Marvel_DC_Characters === ";
 
             Console.WriteLine(@"
@@ -24,55 +48,34 @@ namespace Marvel_DC_Characters
                        ");
 
             //Request Input From User
-            Console.WriteLine(" Select one of the following for find character ");
+            Console.WriteLine(" Select one of the following for find more information about Marvel & DC characters ! ");
             Console.WriteLine();
             Console.WriteLine("\t 1    Marvel");
+            Console.WriteLine();
             Console.WriteLine("\t 2    DC");
-            string userInput = Console.ReadLine();
+            string userInput = Console.ReadLine();       
+                                  
 
             if (userInput == "1")
-            {
-                Console.Title = " === Marvel_DC_Characters === ";
+            {   
+                
+               
                 Console.Clear();
+                Console.Title = " === Marvel_DC_Characters === ";                
+                Console.WriteLine();
                 Console.WriteLine(" There is 00 Good Characters and 00 Bad Characters ");
                 Console.WriteLine();
                 Console.WriteLine(" Select G for Super Heroes or B for Bad One ");
                 Console.WriteLine();
                 Console.ReadLine();
+
             }
-
-
-            string currentDirectory = Directory.GetCurrentDirectory();
-            DirectoryInfo directory = new DirectoryInfo(currentDirectory);
-            var fileName = Path.Combine(directory.FullName, "heroes_information_marvel_dc.csv");
-            var fileContents = ReadHeroesResults(fileName);
-        }
-            public static string ReadFile(string fileName)
-            {
-                using (var reader = new StreamReader(fileName))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
-
-            public static List<string[]> ReadHeroesResults(string fileName)
-            {
-                var heroesResults = new List<string[]>();
-                using (var reader = new StreamReader(fileName))
-                {
-                    string line = "";
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        string[] values = line.Split(',');
-                        heroesResults.Add(values);
-                    }
-                }
-                return heroesResults;
-            }
-
         }
     }
+}
 
 
-    
+
+
+
 

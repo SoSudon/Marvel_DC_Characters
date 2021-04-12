@@ -24,6 +24,26 @@ namespace Marvel_DC_Characters
                 }
             }
 
+            static bool CheckInput(string userInput, int maxValue)
+            {
+                bool result = false;
+                try
+                {
+                    Int32.Parse(userInput);
+                    if (Int32.Parse(userInput) > 0 && Int32.Parse(userInput) <= maxValue)
+                    { result = true; }
+                    else { result = false; }
+                }
+                catch { result = false; }
+                
+                if(userInput.ToLower() == "q" || userInput.ToLower() == "f")
+                {
+                    result = true;
+                }
+
+                return result;
+            }
+
             //Load CSV file into List
             List<Characters> characterList = List.LoadInfo();
                         
@@ -47,6 +67,10 @@ namespace Marvel_DC_Characters
             Console.WriteLine();
             Console.WriteLine("\t Enter Any Other KEY to Exit Out");
             string userInput = Console.ReadLine();
+
+
+            CheckInput(userInput, 2);
+
 
             string field = "Publisher";
             string publisherSelected = "";

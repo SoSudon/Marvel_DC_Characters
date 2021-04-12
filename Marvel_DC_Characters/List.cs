@@ -29,23 +29,25 @@ namespace Marvel_DC_Characters
         }
 
         //Filter the List
-        static List<Characters> FilterList(List<Characters> mylist, string field, string value)
+        public static List<Characters> FilterList(List<Characters> mylist, string field, string value)
         {
+            value = value.ToLower();
+
             if (field == "Publisher")
             {
-                mylist = mylist.Where(m => m.Publisher == value).ToList();
+                mylist = mylist.Where(m => m.Publisher.ToLower() == value).ToList();
             }
             if (field == "Alignment")
             {
-                mylist = mylist.Where(m => m.Alignment == value).ToList();
+                mylist = mylist.Where(m => m.Alignment.ToLower() == value).ToList();
             }
             if (field == "Gender")
             {
-                mylist = mylist.Where(m => m.Gender == value).ToList();
+                mylist = mylist.Where(m => m.Gender.ToLower() == value).ToList();
             }
             if (field == "CharacterName")
             {
-                mylist = mylist.Where(m => m.CharacterName == value).ToList();
+                mylist = mylist.Where(m => m.CharacterName.ToLower() == value).ToList();
             }
 
             return mylist;

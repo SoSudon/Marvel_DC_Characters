@@ -13,30 +13,21 @@ namespace Marvel_DC_Characters
     class Program
     {      
         static void Main(string[] args)
-        {         
-            //Load CSV file into List
-            List<Characters> marvel = List.LoadInfo();
-
-            marvel = marvel.Where(m => m.Publisher == "Marvel Comics").ToList();
-            /*foreach(var characters in marvel)78070
+        {     
+            // Write Results to Console
+            static void WriteResults(List<Characters> listToOutput)
             {
-                Console.WriteLine(marvel);
-            }*/
-            Console.WriteLine(marvel.Count);
-            Console.WriteLine(marvel[0].Id);
-            Console.WriteLine(marvel[0].Publisher);
-            Console.WriteLine(marvel[0].CharacterName);
-            Console.WriteLine(marvel[0].Gender);
-            //Console.WriteLine(string.Join("\t", marvel));
-            //marvel.ForEach(i => Console.Write("{0}\t", i));
-            //List<Characters> gender = List.LoadInfo();
-            //gender = gender.Where(g => g.Gender == "Male".ToUpper).ToList();
+                foreach (var character in listToOutput)
+                {
+                    var OutputString = character.CharacterName + "-" + character.Gender + "-" + character.Publisher + "-" + character.Alignment;
+                    Console.WriteLine(OutputString); 
+                }
+            }
 
-
-            //Console.ReadLine();
-
+            //Load CSV file into List
+            List<Characters> characterList = List.LoadInfo();
+                        
             Console.Title = " === Marvel_DC_Characters === ";
-
             Console.WriteLine(@"
                           __  __                      _            _____   _____ 
                          |  \/  |                    | |   ___    |  __ \ / ____|
@@ -53,23 +44,92 @@ namespace Marvel_DC_Characters
             Console.WriteLine("\t 1    Marvel");
             Console.WriteLine();
             Console.WriteLine("\t 2    DC");
-            string userInput = Console.ReadLine();       
-                                  
+            Console.WriteLine();
+            Console.WriteLine("\t Enter Any Other KEY to Exit Out");
+            string userInput = Console.ReadLine();
 
+            string field = "Publisher";
+            string publisherSelected = "";
             if (userInput == "1")
-            {   
-                
-               
-                Console.Clear();
-                Console.Title = " === Marvel_DC_Characters === ";                
-                Console.WriteLine();
-                Console.WriteLine(" There is 00 Good Characters and 00 Bad Characters ");
-                Console.WriteLine();
-                Console.WriteLine(" Select G for Super Heroes or B for Bad One ");
-                Console.WriteLine();
-                Console.ReadLine();
-
+            {
+                publisherSelected = "Marvel Comics";
             }
+            if (userInput == "2")
+            {
+                publisherSelected = "DC Comics";
+            }
+            
+            characterList = List.FilterList(characterList, field , publisherSelected);
+            //int goodCount = List.FilterList(characterList, "Alignment", "good").Count;
+            //int badCount = List.FilterList(characterList, "Alignment", "bad").Count;
+            //int neutralCount = List.FilterList(characterList, "Alignment", "neutral").Count;
+            //int nullCount = List.FilterList(characterList, "Alignment", "null").Count;
+            //int otherCount = neutralCount + nullCount;
+            //int maleCount = List.FilterList(characterList, "Gender", "male").Count;
+            //int womenCount = List.FilterList(characterList, "Gender", "female").Count;
+
+            //int goodCount = characterList.Where(g => g.Alignment.ToLower() == "good").ToList().Count;
+            //int badCount = characterList.Where(g => g.Alignment.ToLower() == "bad").ToList().Count;
+            //int neutralCount = characterList.Where(g => g.Alignment.ToLower() == "neutral").ToList().Count;
+            //int nullCount = characterList.Where(g => g.Alignment.ToLower() == "null").ToList().Count;
+
+            //FilterList(List<Characters> mylist, string field, string value)
+            var good = List.FilterList(characterList, "Alignment", "good");
+            var bad = List.FilterList(characterList, "Alignment", "bad");
+            var neutral = List.FilterList(characterList, "Alignment", "neutral");
+            var null1 = List.FilterList(characterList, "Alignment", "null");
+            var other = neutral.Concat(null1).ToList();
+            var male = List.FilterList(characterList, "Gender", "male");
+            var women = List.FilterList(characterList, "Gender", "female");
+                        
+
+            Console.Clear();
+            Console.Title = " === Marvel_DC_Characters === ";                
+            Console.WriteLine();
+            Console.WriteLine($" There are a total of {characterList.Count} {publisherSelected} Characters ");
+            Console.WriteLine();
+            Console.WriteLine($" There are {good.Count} Heroes, {bad.Count} Bad, and {other.Count} Neutral Characters");
+            Console.WriteLine();
+            Console.WriteLine($"There are {male.Count} Male Characters and {women.Count} Women Characters");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine(" Find out Characters in below each items, select the number");
+            Console.WriteLine();
+            Console.WriteLine("\t 1    Good Heroes");
+            Console.WriteLine("\t 2    Bad Characters");
+            Console.WriteLine("\t 3    Neutral Characters");
+            Console.WriteLine("\t 4    Male Heroes");
+            Console.WriteLine("\t 5    Women Heroes");
+            userInput = Console.ReadLine();
+
+            Console.Clear();
+            if (userInput == "1")
+            {
+                WriteResults(good);
+            }
+            if (userInput == "2")
+            {
+                WriteResults(bad);
+            }
+            if (userInput == "3")
+            {
+                WriteResults(other);
+            }
+            if (userInput == "4")
+            {
+                WriteResults(male);
+            }
+            if (userInput == "5")
+            {
+                WriteResults(women);
+            }
+          
+
+
+            //characterList = characterList.Where(g => g.CharacterName.ToLower().Contains("trickster")).ToList();
+            //WriteResults(characterList);
+
+
         }
     }
 }

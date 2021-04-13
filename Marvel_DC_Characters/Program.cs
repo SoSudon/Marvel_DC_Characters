@@ -36,7 +36,7 @@ namespace Marvel_DC_Characters
                 }
                 catch { result = false; }
                 
-                if(userInput.ToLower() == "q" || userInput.ToLower() == "f")
+                if(userInput.ToLower() == "q" || userInput.ToLower() == "m")
                 {
                     result = true;
                 }
@@ -46,31 +46,48 @@ namespace Marvel_DC_Characters
 
             //Load CSV file into List
             List<Characters> characterList = List.LoadInfo();
+            string userInput;
+            var startPage = new StartPage();            
+            userInput = startPage.OpenStartPage();
+
+            
                         
-            Console.Title = " === Marvel_DC_Characters === ";
-            Console.WriteLine(@"
-                          __  __                      _            _____   _____ 
-                         |  \/  |                    | |   ___    |  __ \ / ____|
-                         | \  / | __ _ _ ____   _____| |  ( _ )   | |  | | |     
-                         | |\/| |/ _` | '__\ \ / / _ \ |  / _ \/\ | |  | | |     
-                         | |  | | (_| | |   \ V /  __/ | | (_>  < | |__| | |____ 
-                         |_|  |_|\__,_|_|    \_/ \___|_|  \___/\/ |_____/ \_____|                                                  
+            //Console.Title = " === Marvel_DC_Characters === ";
+            //Console.WriteLine(@"
+            //              __  __                      _            _____   _____ 
+            //             |  \/  |                    | |   ___    |  __ \ / ____|
+            //             | \  / | __ _ _ ____   _____| |  ( _ )   | |  | | |     
+            //             | |\/| |/ _` | '__\ \ / / _ \ |  / _ \/\ | |  | | |     
+            //             | |  | | (_| | |   \ V /  __/ | | (_>  < | |__| | |____ 
+            //             |_|  |_|\__,_|_|    \_/ \___|_|  \___/\/ |_____/ \_____|                                                  
                                                   
-                       ");
+            //           ");
 
-            //Request Input From User
-            Console.WriteLine(" Select one of the following for find more information about Marvel & DC characters ! ");
-            Console.WriteLine();
-            Console.WriteLine("\t 1    Marvel");
-            Console.WriteLine();
-            Console.WriteLine("\t 2    DC");
-            Console.WriteLine();
-            Console.WriteLine("\t Enter Any Other KEY to Exit Out");
-            string userInput = Console.ReadLine();
+            ////Request Input From User
+            //Console.WriteLine(" Select one of the following for find more information about Marvel & DC characters ! ");
+            //Console.WriteLine();
+            //Console.WriteLine("\t 1    Marvel");
+            //Console.WriteLine();
+            //Console.WriteLine("\t 2    DC");
+            //Console.WriteLine();
+            //Console.WriteLine("\t Enter Any Other KEY to Exit Out");
+            
 
-
-            CheckInput(userInput, 2);
-
+            // Loop until User insert correct value
+            while (true)
+            {
+                //userInput = Console.ReadLine();    
+              
+                if (CheckInput(userInput, 2))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine(" Please select from List");
+                }                
+            }
+      
 
             string field = "Publisher";
             string publisherSelected = "";
@@ -81,7 +98,7 @@ namespace Marvel_DC_Characters
             if (userInput == "2")
             {
                 publisherSelected = "DC Comics";
-            }
+            }          
             
             characterList = List.FilterList(characterList, field , publisherSelected);
             //int goodCount = List.FilterList(characterList, "Alignment", "good").Count;
@@ -105,49 +122,90 @@ namespace Marvel_DC_Characters
             var other = neutral.Concat(null1).ToList();
             var male = List.FilterList(characterList, "Gender", "male");
             var women = List.FilterList(characterList, "Gender", "female");
-                        
 
-            Console.Clear();
-            Console.Title = " === Marvel_DC_Characters === ";                
-            Console.WriteLine();
-            Console.WriteLine($" There are a total of {characterList.Count} {publisherSelected} Characters ");
-            Console.WriteLine();
-            Console.WriteLine($" There are {good.Count} Heroes, {bad.Count} Bad, and {other.Count} Neutral Characters");
-            Console.WriteLine();
-            Console.WriteLine($"There are {male.Count} Male Characters and {women.Count} Women Characters");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(" Find out Characters in below each items, select the number");
-            Console.WriteLine();
-            Console.WriteLine("\t 1    Good Heroes");
-            Console.WriteLine("\t 2    Bad Characters");
-            Console.WriteLine("\t 3    Neutral Characters");
-            Console.WriteLine("\t 4    Male Heroes");
-            Console.WriteLine("\t 5    Women Heroes");
-            userInput = Console.ReadLine();
+            if (userInput == "q")
+            {
+                Environment.Exit(-1);
+            }
+            else
+            {
+                Console.Clear();
+                Console.Title = " === Marvel_DC_Characters === ";
+                Console.WriteLine();
+                Console.WriteLine($" There are a total of {characterList.Count} {publisherSelected} Characters ");
+                Console.WriteLine();
+                Console.WriteLine($" There are {good.Count} Heroes, {bad.Count} Bad, and {other.Count} Neutral Characters");
+                Console.WriteLine();
+                Console.WriteLine($"There are {male.Count} Male Characters and {women.Count} Women Characters");
+                Console.WriteLine();
 
-            Console.Clear();
-            if (userInput == "1")
-            {
-                WriteResults(good);
+
+                
+                //Page 2
+                Console.WriteLine();
+                Console.WriteLine(" Find out Characters in below each items, select the number");
+                Console.WriteLine();
+                Console.WriteLine("\t 1    Good Heroes");
+                Console.WriteLine("\t 2    Bad Characters");
+                Console.WriteLine("\t 3    Neutral Characters");
+                Console.WriteLine("\t 4    Male Heroes");
+                Console.WriteLine("\t 5    Women Heroes");
+                Console.WriteLine();
+                Console.WriteLine("M     Go Back to Main Menu");
+                Console.WriteLine();
+                Console.WriteLine("Q     Exit");
             }
-            if (userInput == "2")
+
+            while (true)
             {
-                WriteResults(bad);
+                userInput = Console.ReadLine();
+                if (CheckInput(userInput, 5))
+                {
+                    break;
+                }               
+                else
+                {
+                    Console.WriteLine(" Please select from List");
+                }
             }
-            if (userInput == "3")
+
+            if (userInput.ToLower() == "q")
             {
-                WriteResults(other);
+                Environment.Exit(-1);
             }
-            if (userInput == "4")
+            
+            else
             {
-                WriteResults(male);
+                Console.Clear();
+                if (userInput == "1")
+                {
+                    WriteResults(good);
+                }
+                if (userInput == "2")
+                {
+                    WriteResults(bad);
+                }
+                if (userInput == "3")
+                {
+                    WriteResults(other);
+                }
+                if (userInput == "4")
+                {
+                    WriteResults(male);
+                }
+                if (userInput == "5")
+                {
+                    WriteResults(women);
+                }
+                if (userInput.ToLower() == "m")
+                {
+                    startPage.OpenStartPage();
+                }
+                if (userInput.ToLower() == "q")
+                {
+                    Environment.Exit(-1);
+                }
             }
-            if (userInput == "5")
-            {
-                WriteResults(women);
-            }
-          
 
 
             //characterList = characterList.Where(g => g.CharacterName.ToLower().Contains("trickster")).ToList();

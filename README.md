@@ -3,15 +3,15 @@
 
 
 ## Description
-#### The Marvel & DC Character console application display character information User selected. Main page started asked to user to choose one of the Marvel or DC characeters. When user choose Marvel or DC, list will filter to selected Publisher and shows characters counts on Good, Bad, Neutral, male, and women for basic information. Also, give other options to choose for characters names on a list. Application will repeates until user decide to quite by enter "q".
+#### The Marvel & DC Character console application displays character information based upon the user's selection.  Selction starts with the main page, where the user is asked to choose between Marvel or DC characters. Once the user has chosen either Marvel or DC, the list will filter to the selected Publisher and show characters counts on Good, Bad, Neutral, Male, and Female for basic information. The user is then given other options to further filter the list by Good, Bad, Neutral, Male, and Female, or they may choose to quit the application. The application will repeates until user decide to quite by enter "q".
 
 
 ## Requirement List
 * User can repeatedly enter commands, including choosing to exit the program.
 * Created an additional class.
 * Used selected items from CSV file. 
-* Created an list to retrieve Characters datas.
-* LINQ query to retrieve informations from List.
+* Created a list to retrieve Characters data.
+* LINQ query used to retrieve informations from List.
 
 
 

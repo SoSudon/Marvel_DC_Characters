@@ -14,10 +14,21 @@ namespace Marvel_DC_Characters
     {      
         static void Main()
         {
+            string userInput;
+            string field = "Publisher";
+            string publisherSelected = "";
+
+            List<Characters> good = new List<Characters>();
+            List<Characters> bad = new List<Characters>();
+            List<Characters> neutral = new List<Characters>();
+            List<Characters> null1 = new List<Characters>();
+            List<Characters> other = new List<Characters>();
+            List<Characters> male = new List<Characters>();
+            List<Characters> women = new List<Characters>();         
+   
+
             while (true)
-            {
-                //static void OpenStartPage()
-                //{
+            {                
                 List<Characters> characterList = List.LoadInfo();
                 Console.Clear();
                 Console.Title = " === Marvel_DC_Characters === ";
@@ -37,8 +48,7 @@ namespace Marvel_DC_Characters
                 Console.WriteLine("\n\t 2    DC");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\n\t Q    Exit");
-                Console.ResetColor();
-                string userInput; 
+                Console.ResetColor();                
                 
                 while (true)
                 {
@@ -53,10 +63,7 @@ namespace Marvel_DC_Characters
                         Console.WriteLine(" Please select from List");
                     }
                 }
-
-
-                string field = "Publisher";
-                string publisherSelected = "";
+                
                 if (userInput == "1")
                 {
                     publisherSelected = "Marvel Comics";
@@ -69,13 +76,13 @@ namespace Marvel_DC_Characters
                 characterList = List.FilterList(characterList, field, publisherSelected);
 
                 //FilterList(List<Characters> mylist, string field, string value)
-                var good = List.FilterList(characterList, "Alignment", "good");
-                var bad = List.FilterList(characterList, "Alignment", "bad");
-                var neutral = List.FilterList(characterList, "Alignment", "neutral");
-                var null1 = List.FilterList(characterList, "Alignment", "null");
-                var other = neutral.Concat(null1).ToList();
-                var male = List.FilterList(characterList, "Gender", "male");
-                var women = List.FilterList(characterList, "Gender", "female");
+                good = List.FilterList(characterList, "Alignment", "good");
+                bad = List.FilterList(characterList, "Alignment", "bad");
+                neutral = List.FilterList(characterList, "Alignment", "neutral");
+                null1 = List.FilterList(characterList, "Alignment", "null");
+                other = neutral.Concat(null1).ToList();
+                male = List.FilterList(characterList, "Gender", "male");
+                women = List.FilterList(characterList, "Gender", "female");
 
                 if (userInput == "q")
                 {
@@ -103,13 +110,6 @@ namespace Marvel_DC_Characters
                 
                 SecondPage(characterList);
             }
-
-
-            //// Infinite loop until user chooses "Q" to exit.
-            //while (true)
-            //{
-            //    OpenStartPage();
-            //}
 
         }
         // Write Results to Console
@@ -209,8 +209,7 @@ namespace Marvel_DC_Characters
                 }
                 if (userInput.ToLower() == "m")
                 {
-                    Main();
-                    //OpenStartPage();
+                    Main();                    
                 }
                 if (userInput.ToLower() == "q")
                 {

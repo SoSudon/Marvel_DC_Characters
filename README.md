@@ -8,10 +8,9 @@
 
 ## Requirement List
 * User can repeatedly enter commands, including choosing to exit the program.
-* Created an additional class.
 * Used selected items from CSV file. 
 * Created a list to retrieve Characters data.
-* LINQ query used to retrieve informations from List.
+* LINQ query used to retrieve informations from List- List.FiterList
 
 
 

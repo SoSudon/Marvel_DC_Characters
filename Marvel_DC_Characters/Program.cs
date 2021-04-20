@@ -85,7 +85,7 @@ namespace Marvel_DC_Characters
                 male = List.FilterList(characterList, "Gender", "male");
                 women = List.FilterList(characterList, "Gender", "female");
 
-                if (userInput == "q")
+                if (userInput.ToLower() == "q")
                 {
                     Environment.Exit(-1);
                 }

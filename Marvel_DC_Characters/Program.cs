@@ -17,6 +17,7 @@ namespace Marvel_DC_Characters
             string userInput;
             string field = "Publisher";
             string publisherSelected = "";
+            List<Characters> characterList;
 
             List<Characters> good = new List<Characters>();
             List<Characters> bad = new List<Characters>();
@@ -29,7 +30,7 @@ namespace Marvel_DC_Characters
 
             while (true)
             {                
-                List<Characters> characterList = List.LoadInfo();
+                characterList = List.LoadInfo();
                 Console.Clear();
                 Console.Title = " === Marvel_DC_Characters === ";
                 Console.WriteLine(@"
